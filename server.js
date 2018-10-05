@@ -66,7 +66,7 @@ var seeScoresByName=(name)=>{
 };
 
 
-var addScore=(level,score,name)=>{
+var addScore=(score,name)=>{
 var scores=[];
 var score={
   name,
@@ -95,7 +95,7 @@ app.use(express.static(__dirname+'/public'));
 
 
 app.post('/',(req,res) =>{
-addScore(req.body.level,req.body.score,req.body.name);
+addScore(JSON.stringify(req.body.score),JSON.stringify(req.body.name));
 
 });
 
