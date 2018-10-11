@@ -22,8 +22,12 @@ app.post('/users',(req,res)=>{
   });
 });
 
-app.get('/users',()=>{
-
+app.get('/users',(req,res)=>{
+  User.find().then((users)=>{
+    res.send({users});
+  },(e)=>{
+    res.status(400).send(e);
+  })
 });
 
 app.listen(3100,()=>{
