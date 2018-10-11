@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var User=mongoose.model('Todo',{
+var User=mongoose.model('User',{
   userName:{
     type: String,
     required: true,
@@ -16,7 +16,7 @@ var User=mongoose.model('Todo',{
   },
   score:{
     type: String,
-    default: null
+    default: 0
   }
 });
 
