@@ -25,12 +25,49 @@ console.log(JSON.stringify(result.ops,undefined,2));
 
 };
 
-
 var getUser=(userName,password)=>{
 db.collection('Users').find({userName: 'userName'},{password: 'password'}).toArray().then((docs) => {
   console.log(JSON.stringify(docs, undefined, 2));
 });
 }
+
+var deleteAll=()=>{
+  db.collection('Users').deleteMany({}).then((result)=>{
+    console.log(result);
+  });
+}
+
+var deleteOne=(userName)=>{
+  db.collection('Users').deleteOne({userName:userName}).then((result)=>{
+    console.log(result);
+  });
+}
+
+var addScore=(userName,password,score)=>{
+  db.collection('Users').findOneAndUpdate(
+    {
+      userName:userName,
+      password:password
+    },{
+      $set:
+      {
+        score=score
+      }
+    }
+  )
+}
+
+var top=(number)=>{
+
+}
+
+
+var sortDataBase=>{
+  db.collection('Users').find().sort
+}
+
+
+
 
 
   });
