@@ -12,6 +12,27 @@ var app = express();
 
 app.use(bodyParser.json());
 
+
+
+app.use((req, res, next) => {
+  console.log('is is right');
+  var now = new Date().toString();
+  var log = ('${now}:' + now + '-----' + req.method + '--' + req.url + "--" + req.body);
+
+  //  console.log(req);
+
+  next();
+});
+
+
+
+
+
+
+
+
+
+//make a new user
 app.post('/users', (req, res) => {
   var user = new User({
     userName: req.body.userName,
@@ -27,20 +48,25 @@ app.post('/users', (req, res) => {
 });
 
 
+
+//add score
 app.post('/users/score', (req, res) => {
-  var query = { userName: req.body.userName };
+  var query = {
+    userName: req.body.userName,
+    password: req.body.password
+  };
   User.findOneAndUpdate(query, {
     $set: {
       score: req.body.score
     }
-  }, ()=>{
-    res.send('saved');
-  }
-);
+  }, () => {
+    console.log('scoreSaved');
+    res.send('ScoreSaved');
+  });
 });
 
 
-
+//get all users
 app.get('/users/score', (req, res) => {
   User.find().then((users) => {
     res.send({
@@ -54,31 +80,37 @@ app.get('/users/score', (req, res) => {
 
 
 
-
+//get leaderBoard
 app.post('/users/me', (req, res) => {
-
-  User.find({
-
-    }, {
-        userName: 1,
-        score: 1
-    },function(err,response){
-      for(var i=0;i<response.length;i++){
-    if(response[i].userName==req.body.userName){
-      var output=[];
-      for(var j=i+2;j<i-2;j--){
-        output.push(response[j]);
+  console.log(req.body);
+  User.find({}, {
+      userName: 1,
+      score: 1
+    }, function(err, response) {
+      if (err) {
+        console.log('error');
+        res.send(err);
       }
-      res.send(output);
-    }
-  }
+      for (var i = 0; i < response.length; i++) {
+        if (response[i].userName == req.body.userName) {
+          console.log(response[i].userName);
+          var output = [];
+          console.log(response.length);
+          var g = 0;
+          for (var j = i + 2; j >= (i - 2); j--) {
+            response[j].rank = j + 1;
+            output.push(response[j]);
+
+            g += 1;
+            console.log(output[g]);
+          }
+          res.send(output);
+        }
+      }
     })
-    .sort({
-        score: -1
-    });
-
-
-
+    .sort(
+      "score"
+    );
 });
 
 

@@ -15,7 +15,11 @@ var User=mongoose.model('User',{
     required: true
   },
   score:{
-    type: String,
+    type: Number,
+    default: 0
+  },
+  rank:{
+    type: Number,
     default: 0
   }
 });
