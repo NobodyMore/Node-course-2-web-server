@@ -49,6 +49,7 @@ app.post('/users', (req, res) => {
 
 
 
+
 //add score
 app.post('/users/score', (req, res) => {
   var query = {
@@ -97,7 +98,7 @@ app.post('/users/me', (req, res) => {
           var output = [];
           console.log(response.length);
           var g = 0;
-          for (var j = i + 2; j >= (i - 2); j--) {
+          for (var j = i - 2; j <= (i + 2); j++) {
             response[j].rank = j + 1;
             output.push(response[j]);
 
@@ -109,12 +110,12 @@ app.post('/users/me', (req, res) => {
       }
     })
     .sort(
-      "score"
+      "-score"
     );
 });
 
 
 
-app.listen(3100, () => {
-  console.log('started on port 3100');
+app.listen(3200, () => {
+  console.log('started on port 3200');
 });
