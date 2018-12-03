@@ -1,27 +1,27 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
-var User=mongoose.model('User',{
-  userName:{
+let User = mongoose.model('User', {
+  userName: {
     type: String,
     required: true,
     unique: true
   },
-  password:{
+  password: {
     type: String,
     required: true
   },
-  phoneNumber:{
+  phoneNumber: {
     type: String,
     required: true
   },
-  score:{
+  score: {
     type: Number,
     default: 0
   },
-  rank:{
+  rank: {
     type: Number,
     default: 0
   }
-});
+})
 
-module.exports={User};
+module.exports = {User}
