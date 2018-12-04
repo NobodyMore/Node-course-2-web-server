@@ -6,13 +6,14 @@ let options = {
   pass: 'Ha021mid',
   authSource: 'admin',
   promiseLibrary: global.Promise,
-  useNewUrlParser: true
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  keepAlive: true
 }
 
-mongoose.connect(uri, options)
-// let db = mongoose.connection
-// db.on('error', console.error.bind(console, 'connection error:'))
-// db.once('open', function () {
-//   console.log('database connected!')de
-// })
+mongoose.connect(uri, options).then(
+  () => {console.log('Database connected.')},
+  (err) => {console.log((err))}
+)
+
 module.exports = {mongoose}
