@@ -1,7 +1,19 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
-mongoose.Promise=global.Promise;
+let uri = 'mongodb://localhost:27017/Users'
+let options = {
+  user: 'root',
+  pass: 'Ha021mid',
+  authSource: 'admin',
+  promiseLibrary: global.Promise,
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  keepAlive: true
+}
 
-mongoose.connect('mongodb://localhost:27017/Users');
+mongoose.connect(uri, options).then(
+  () => {console.log('Database connected.')},
+  (err) => {console.log((err))}
+)
 
-module.exports={mongoose};
+module.exports = {mongoose}
